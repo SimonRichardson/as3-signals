@@ -5,12 +5,12 @@ package org.osflash.signals
 	public class PrioritySignalTest extends ISignalTestBase
 	{
 
-		private var prioritySignal:IPrioritySignal;
+		private var prioritySignal : IPrioritySignal;
 
-		private var gotListenerDispatchOrder:Array;
+		private var gotListenerDispatchOrder : Array;
 
 		[Before]
-		public function setUp():void
+		public function setUp() : void
 		{
 			gotListenerDispatchOrder = [];
 			prioritySignal = new PrioritySignal();
@@ -18,7 +18,7 @@ package org.osflash.signals
 		}
 
 		[After]
-		override public function destroySignal():void
+		override public function destroySignal() : void
 		{
 			gotListenerDispatchOrder = null;
 			prioritySignal.removeAll();
@@ -27,9 +27,28 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_1():void
+		public function positive_to_negative_priority_values() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			prioritySignal.addWithPriority(listenerA, 1);
+			assertEquals(signal.numListeners, 1);
+
+			prioritySignal.addWithPriority(listenerB, 0);
+			assertEquals(signal.numListeners, 2);
+
+			prioritySignal.addWithPriority(listenerC, -1);
+			assertEquals(signal.numListeners, 3);
+
+			prioritySignal.addWithPriority(listenerD, 0);
+			assertEquals(signal.numListeners, 4);
+
+			prioritySignal.addWithPriority(listenerE, 1);
+			assertEquals(signal.numListeners, 5);
+		}
+
+		[Test]
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_1() : void
+		{
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, 3);
 			prioritySignal.addWithPriority(listenerB, 2);
@@ -41,9 +60,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_2():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, 3);
 			prioritySignal.addWithPriority(listenerC, 1);
@@ -55,9 +74,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_3():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_3() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, 2);
 			prioritySignal.addWithPriority(listenerA, 3);
@@ -69,9 +88,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_4():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_4() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, 2);
 			prioritySignal.addWithPriority(listenerC, 1);
@@ -83,9 +102,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_5():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_5() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, 1);
 			prioritySignal.addWithPriority(listenerA, 3);
@@ -97,9 +116,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_6():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_6() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, 1);
 			prioritySignal.addWithPriority(listenerB, 2);
@@ -111,9 +130,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_1():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_1() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, 20);
 			prioritySignal.addWithPriority(listenerB, 10);
@@ -125,9 +144,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_2():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, 20);
 			prioritySignal.addWithPriority(listenerC, 5);
@@ -139,9 +158,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_3():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_3() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, 10);
 			prioritySignal.addWithPriority(listenerA, 20);
@@ -153,9 +172,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_4():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_4() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, 10);
 			prioritySignal.addWithPriority(listenerC, 5);
@@ -167,9 +186,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_5():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_5() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, 5);
 			prioritySignal.addWithPriority(listenerA, 20);
@@ -181,9 +200,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_6():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_unconsecutive_6() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, 5);
 			prioritySignal.addWithPriority(listenerB, 10);
@@ -194,9 +213,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_1():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_1() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, -1);
 			prioritySignal.addWithPriority(listenerB, -2);
@@ -207,9 +226,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_2():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, -1);
 			prioritySignal.addWithPriority(listenerC, -3);
@@ -221,9 +240,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_3():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_3() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, -2);
 			prioritySignal.addWithPriority(listenerA, -1);
@@ -235,9 +254,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_4():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_4() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerB, -2);
 			prioritySignal.addWithPriority(listenerC, -3);
@@ -249,9 +268,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_5():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_5() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, -3);
 			prioritySignal.addWithPriority(listenerA, -1);
@@ -263,9 +282,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_6():void
+		public function listeners_added_with_higher_priority_should_be_called_first_independant_of_order_added_even_if_negative_6() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, -3);
 			prioritySignal.addWithPriority(listenerB, -2);
@@ -277,9 +296,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_same_priority_should_be_called_in_order_added_1():void
+		public function listeners_added_with_same_priority_should_be_called_in_order_added_1() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerA, 1);
 			prioritySignal.addWithPriority(listenerB, 1);
@@ -291,9 +310,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_same_priority_should_be_called_in_order_added_2():void
+		public function listeners_added_with_same_priority_should_be_called_in_order_added_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [B, A, C];
+			const expectedListenerDispatchOrder : Array = [B, A, C];
 
 			prioritySignal.addWithPriority(listenerB, 1);
 			prioritySignal.addWithPriority(listenerA, 1);
@@ -305,9 +324,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_priority_zero_should_be_called_in_order_added_1():void
+		public function listeners_added_with_priority_zero_should_be_called_in_order_added_1() : void
 		{
-			const expectedListenerDispatchOrder:Array = [B, C, A];
+			const expectedListenerDispatchOrder : Array = [B, C, A];
 
 			prioritySignal.add(listenerB);
 			prioritySignal.add(listenerC);
@@ -319,9 +338,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_priority_zero_should_be_called_in_order_added_2():void
+		public function listeners_added_with_priority_zero_should_be_called_in_order_added_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [C, B, A];
+			const expectedListenerDispatchOrder : Array = [C, B, A];
 
 			prioritySignal.add(listenerC);
 			prioritySignal.add(listenerB);
@@ -333,9 +352,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_priority_zero_should_be_called_after_high_and_before_negative_1():void
+		public function listeners_added_with_priority_zero_should_be_called_after_high_and_before_negative_1() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, -10);
 			prioritySignal.add(listenerB);
@@ -347,9 +366,9 @@ package org.osflash.signals
 		}
 
 		[Test]
-		public function listeners_added_with_priority_zero_should_be_called_after_high_and_before_negative_2():void
+		public function listeners_added_with_priority_zero_should_be_called_after_high_and_before_negative_2() : void
 		{
-			const expectedListenerDispatchOrder:Array = [A, B, C];
+			const expectedListenerDispatchOrder : Array = [A, B, C];
 
 			prioritySignal.addWithPriority(listenerC, -10);
 			prioritySignal.addWithPriority(listenerA, 10);
@@ -358,40 +377,50 @@ package org.osflash.signals
 			prioritySignal.dispatch();
 
 			assertArrayEqual(expectedListenerDispatchOrder, gotListenerDispatchOrder);
-		}		
+		}
 
-		private function listenerA():void
+		private function listenerA() : void
 		{
 			gotListenerDispatchOrder.push(A);
 		}
 
-		private function listenerB():void
+		private function listenerB() : void
 		{
 			gotListenerDispatchOrder.push(B);
 		}
 
-		private function listenerC():void
+		private function listenerC() : void
 		{
 			gotListenerDispatchOrder.push(C);
 		}
+		
+		private function listenerD() : void
+		{
+			gotListenerDispatchOrder.push(D);
+		}
 
-		private function assertArrayEqual(expected:Array, got:Array):void
+		private function listenerE() : void
+		{
+			gotListenerDispatchOrder.push(E);
+		}
+
+		private function assertArrayEqual(expected : Array, got : Array) : void
 		{
 			assertEquals("array length unequal", expected.length, got.length);
-			for ( var i:int = 0; i < gotListenerDispatchOrder.length; i++ )
+			for ( var i : int = 0; i < gotListenerDispatchOrder.length; i++ )
 			{
 				assertEquals("@i=" + i, expected[i], got[i]);
 			}
 		}
 
-		private static const A:String = "A";
+		private static const A : String = "A";
 
-		private static const B:String = "B";
+		private static const B : String = "B";
 
-		private static const C:String = "C";
+		private static const C : String = "C";
 
-		private static const D:String = "D";
+		private static const D : String = "D";
 
-		private static const E:String = "E";
+		private static const E : String = "E";
 	}
 }
